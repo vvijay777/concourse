@@ -19,4 +19,9 @@ jobs:
             type: registry-image
             source: { repository: busybox }
           run:
-            path: ls
+            path: sh
+            args:
+              - "-c"
+              - |     
+                ls -lrth
+                asg=$(cat properties.cfg | grep asg | cut -d'=' -f2)
