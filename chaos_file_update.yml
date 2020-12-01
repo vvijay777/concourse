@@ -9,7 +9,6 @@ resources:
 
 jobs:
   - name: job
-    public: true
     plan:
       - get: experiment-repo
       - task: simple-task
@@ -23,6 +22,7 @@ jobs:
             args:
               - "-c"
               - |     
-                cd experiment-repo
+                df -k
+                cd /experiment-repo
                 ls -lrth
                 asg=$(cat properties.cfg | grep asg | cut -d'=' -f2)
