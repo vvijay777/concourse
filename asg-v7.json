@@ -37,7 +37,7 @@
               "type": "python",
               "func": "terminate_random_instances",
               "arguments": {
-                  "asg_names": ["a206475-chaos-demo-app-ASG20201029055740563600000003"],
+                  "asg_names": ["ASG20201029055740563600000003"],
                   "instance_count": 1
               }
             },
