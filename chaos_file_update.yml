@@ -23,6 +23,6 @@ jobs:
               - "-c"
               - |     
                 df -k
-                cd /experiment-repo
+                cd /
                 ls -lrth
                 asg=$(cat properties.cfg | grep asg | cut -d'=' -f2)
