@@ -1,0 +1,55 @@
+{
+    "title": "AWS resilliency",
+    "description": "If an autoscale fails another node should become the leader",
+    "tags": ["aws"],
+    "configuration": {
+        "aws_region": "eu-west-1"
+    },
+
+    "secrets": {
+        "aws": {
+            "aws_access_key_id":"AWS_ACCESS_KEY_ID",
+            "aws_secret_access_key":"AWS_SECRET_ACCESS_KEY",
+            "aws_session_token":"AWS_SESSION_TOKEN"
+        }
+    },
+
+    "steady-state-hypothesis": {
+        "title": "Application responds",
+        "probes": [
+            {
+                "type": "probe",
+                "name": "check-web-service",
+                "tolerance": 200,
+                "provider": {
+                    "type": "http",
+                    "timeout": [5, 5],
+                    "expected_status": 200,
+                    "url": "https://www.google.com/"
+                }
+            }
+]
+    },
+    "method": [
+        {
+            "provider": {
+              "module": "chaosaws.asg.actions",
+              "type": "python",
+              "func": "terminate_random_instances",
+              "arguments": {
+                  "asg_names": ["a206475-chaos-demo-app-ASG20201029055740563600000003"],
+                  "instance_count": 1
+              }
+            },
+            "type": "action",
+            "name": "terminate-asg-instance",
+            "pauses": {
+                "after": 10
+            }
+          },
+        {
+            "ref": "check-web-service"
+        }
+    ],
+    "rollbacks": []
+}
