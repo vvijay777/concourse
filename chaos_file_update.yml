@@ -25,11 +25,7 @@ jobs:
               - "-c"
               - |     
                 cd experiment-repo
-                alb=$(cat properties.cfg | grep asg | cut -d'=' -f2)
-                asg=$(cat properties.cfg | grep asg | cut -d'=' -f2)
-                echo $asg
-                echo $alb
-                more asg.json
-                sed -i "/^[[:space:]]*\"url\"/ s/:.*/:\ \"\http:\/\/$alb\"/" asg.json
-                sed -i "/^[[:space:]]*\"asg_names\"/ s/:.*/:\ [\"$asg\"],/" asg.json
-                more asg.json
+                echo "Running the Script to take the User Input mentioned in the Properties.cfg File"
+                sh user_input.sh
+                echo "Running the Chaos Experiment after changing the values based on Property File"
+                chaos run asg.json
