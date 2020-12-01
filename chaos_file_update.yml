@@ -28,4 +28,4 @@ jobs:
                 cd experiment-repo
                 ls -lrth
                 asg=$(cat properties.cfg | grep asg | cut -d'=' -f2)
-                print $asg
+                echo $asg
