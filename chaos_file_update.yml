@@ -17,12 +17,14 @@ jobs:
           image_resource:
             type: registry-image
             source: { repository: busybox }
+          inputs:
+          - name: experiment-repo
           run:
             path: sh
             args:
               - "-c"
               - |     
                 df -k
-                cd /
+                cd experiment-repo
                 ls -lrth
                 asg=$(cat properties.cfg | grep asg | cut -d'=' -f2)
