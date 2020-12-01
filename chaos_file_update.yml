@@ -23,5 +23,6 @@ jobs:
             args:
               - "-c"
               - |     
+                cd experiment-repo
                 ls -lrth
                 asg=$(cat properties.cfg | grep asg | cut -d'=' -f2)
