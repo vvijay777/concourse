@@ -1,1 +1,22 @@
-echo 
+resources:
+- icon: git
+  name: experiment-repo
+  source:
+    branch: master
+    uri: https://github.com/vvijay777/concourse.git
+  type: git
+
+
+jobs:
+  - name: job
+    public: true
+    plan:
+      - get: experiment-repo
+      - task: simple-task
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: { repository: busybox }
+          run:
+            path: ls -lrth
